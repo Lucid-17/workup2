@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TricepsComponent } from './triceps.component';
+import {TricepsComponent} from './triceps.component';
 
 describe('TricepsComponent', () => {
   let component: TricepsComponent;
@@ -8,10 +8,9 @@ describe('TricepsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TricepsComponent]
-    })
-    .compileComponents();
-    
+      declarations: [TricepsComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(TricepsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

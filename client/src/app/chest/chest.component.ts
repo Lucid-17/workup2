@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-chest',
   templateUrl: './chest.component.html',
-  styleUrl: './chest.component.css'
+  styleUrl: './chest.component.css',
 })
-export class ChestComponent {
-
-}
+export class ChestComponent {}
