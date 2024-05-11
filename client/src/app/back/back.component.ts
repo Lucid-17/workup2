@@ -12,10 +12,10 @@ interface BackItem {
   prev: string;
 }
 
-interface BackResponse {
-  success: boolean;
-  message: string;
-}
+// interface BackResponse {
+//   success: boolean;
+//   message: string;
+// }
 
 @Component({
   selector: 'app-back',
@@ -91,7 +91,7 @@ export class BackComponent implements OnInit {
 
   // CREATE a Back exercise //
 
-  createBack(): Observable<BackResponse> {
+  createBack(): Observable<BackItem> {
     const body = {
       description: this.description,
       rounds: this.rounds,
@@ -99,7 +99,7 @@ export class BackComponent implements OnInit {
       pr: this.pr,
       prev: this.prev,
     };
-    return this.http.post<BackResponse>('http://localhost:9000/back', body);
+    return this.http.post<BackItem>('http://localhost:9000/back', body);
   }
 
   //EDIT a Back exercise //

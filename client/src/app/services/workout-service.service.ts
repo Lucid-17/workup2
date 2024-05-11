@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {Observable} from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
@@ -39,5 +38,19 @@ export class WorkoutServiceService {
           console.error(error.message);
         },
       });
+  }
+
+  createExercise(muscleGroup: string): Observable<MuscleItem> {
+    const body = {
+      description: this.description,
+      rounds: this.rounds,
+      reps: this.reps,
+      pr: this.pr,
+      prev: this.prev,
+    };
+    return this.http.post<MuscleItem>(
+      `http://localhost:9000/${muscleGroup}`,
+      body,
+    );
   }
 }
