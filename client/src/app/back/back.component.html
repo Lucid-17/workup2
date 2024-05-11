@@ -1,9 +1,9 @@
 <div class="table-container">
 
-    <!-- Button to Open Modal -->
+    
     <button class="btn btn-primary" (click)="openModal(addModal)">Add Exercise</button>
   
-    <!-- Modal Template -->
+    
     <ng-template #addModal>
       <div class="modal-header">
         <h4 class="modal-title">Add Exercise</h4>
@@ -49,10 +49,10 @@
               <td>{{backs.pr}}</td>
               <td>{{backs.prev}}</td>
               <td>
-                <!-- Button to Open Modal -->
+                
                 <button class="btn btn-warning" (click)="openModal(editModal)">Edit</button>
   
-                <!-- Modal Template -->
+                
                 <ng-template #editModal>
                   <div class="modal-header">
                     <h4 class="modal-title">Edit</h4>
@@ -81,10 +81,10 @@
                 </ng-template>
               </td>
               <td>
-                <!-- Button to Open Modal -->
+                
                 <button class="btn btn-danger" (click)="openModal(deleteModal)">Delete</button>
   
-                <!-- Modal Template -->
+                
                 <ng-template #deleteModal>
                   <div class="modal-header">
                     <h4 class="modal-title">Delete</h4>
@@ -107,7 +107,3 @@
         </table>
   
   </div>
-  
-  
-  
-  
