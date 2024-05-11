@@ -51,6 +51,32 @@ export class WorkoutServiceService {
     return this.http.post<MuscleItem>(
       `http://localhost:9000/${muscleGroup}`,
       body,
+      {
+        headers: {'Content-Type': 'application/json'},
+      },
     );
+  }
+
+  updateWorkout(
+    muscleGroup: string,
+    id: number,
+    description: string,
+    rounds: string,
+    reps: string,
+    pr: string,
+    prev: string,
+  ): Observable<void> {
+    const body = {description, rounds, reps, pr, prev};
+    return this.http.put<void>(
+      `http://localhost:9000/${muscleGroup}/${id}`,
+      body,
+      {
+        headers: {'Content-Type': 'application/json'},
+      },
+    );
+  }
+
+  deleteWorkout(muscleGroup: string, id: number): Observable<void> {
+    return this.http.delete<void>(`http://localhost:9000/${muscleGroup}/${id}`);
   }
 }
