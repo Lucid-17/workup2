@@ -13,6 +13,10 @@ interface MuscleItem {
   prev: string;
 }
 
+interface Return {
+  message: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -65,9 +69,9 @@ export class WorkoutServiceService {
     reps: string,
     pr: string,
     prev: string,
-  ): Observable<void> {
+  ): Observable<Return> {
     const body = {description, rounds, reps, pr, prev};
-    return this.http.put<void>(
+    return this.http.put<Return>(
       `http://localhost:9000/${muscleGroup}/${id}`,
       body,
       {
@@ -76,7 +80,9 @@ export class WorkoutServiceService {
     );
   }
 
-  deleteWorkout(muscleGroup: string, id: number): Observable<void> {
-    return this.http.delete<void>(`http://localhost:9000/${muscleGroup}/${id}`);
+  deleteWorkout(muscleGroup: string, id: number): Observable<Return> {
+    return this.http.delete<Return>(
+      `http://localhost:9000/${muscleGroup}/${id}`,
+    );
   }
 }
