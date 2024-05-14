@@ -1,4 +1,6 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import {Component, OnInit, TemplateRef, Input} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import {
   WorkoutServiceService,
@@ -6,12 +8,15 @@ import {
 } from '../services/workout-service.service';
 
 @Component({
-  selector: 'app-back',
-  templateUrl: './back.component.html',
-  styleUrl: './back.component.css',
+  selector: 'app-muscle-group',
+  templateUrl: './muscle-group.component.html',
+  styleUrl: './muscle-group.component.css',
 })
-export class BackComponent implements OnInit {
-  back: MuscleItem[] = [];
+export class MuscleGroupComponent implements OnInit {
+  // @Input() muscleGroup: string = '';
+
+  muscleGroup: string = '';
+  exercises: MuscleItem[] = [];
   description: string = '';
   rounds: string = '';
   reps: string = '';
@@ -20,19 +25,23 @@ export class BackComponent implements OnInit {
   modalRef: BsModalRef | undefined;
 
   constructor(
+    private route: ActivatedRoute,
     private workoutService: WorkoutServiceService,
     private modalService: BsModalService,
   ) {}
 
   ngOnInit(): void {
-    this.getAllBacks();
+    this.route.paramMap.subscribe((params) => {
+      this.muscleGroup = params.get('muscleGroup') || '';
+      this.getAllExercises();
+    });
   }
 
-  getAllBacks(): void {
-    this.workoutService.getWorkouts('back').subscribe({
+  getAllExercises(): void {
+    this.workoutService.getWorkouts(this.muscleGroup).subscribe({
       next: (data) => {
-        this.back = data;
-        console.log(this.back);
+        this.exercises = data;
+        console.log(this.exercises);
       },
       error: (error) => {
         console.error(error.message);
@@ -40,7 +49,7 @@ export class BackComponent implements OnInit {
     });
   }
 
-  createBack(): void {
+  createExercise(): void {
     const body = {
       description: this.description,
       rounds: this.rounds,
@@ -48,16 +57,16 @@ export class BackComponent implements OnInit {
       pr: this.pr,
       prev: this.prev,
     };
-    this.workoutService.createWorkout('back', body).subscribe({
+    this.workoutService.createWorkout(this.muscleGroup, body).subscribe({
       next: () => {
-        this.getAllBacks();
-        window.location.href = '/back';
+        this.getAllExercises();
+        window.location.href = `/exercise/${this.muscleGroup}`;
       },
       error: (error) => console.error(error),
     });
   }
 
-  updateBack(
+  updateExercise(
     id: number,
     description: string,
     rounds: string,
@@ -66,10 +75,10 @@ export class BackComponent implements OnInit {
     prev: string,
   ): void {
     this.workoutService
-      .updateWorkout('back', id, description, rounds, reps, pr, prev)
+      .updateWorkout(this.muscleGroup, id, description, rounds, reps, pr, prev)
       .subscribe({
         next: () => {
-          window.location.href = '/back';
+          window.location.href = `/exercise/${this.muscleGroup}`;
         },
         error: (error) => {
           console.error(error.message);
@@ -77,11 +86,11 @@ export class BackComponent implements OnInit {
       });
   }
 
-  deleteBack(id: number): void {
-    this.workoutService.deleteWorkout('back', id).subscribe({
+  deleteExercise(id: number): void {
+    this.workoutService.deleteWorkout(this.muscleGroup, id).subscribe({
       next: () => {
-        this.getAllBacks();
-        window.location.href = '/back';
+        this.getAllExercises();
+        window.location.href = `/exercise/${this.muscleGroup}`;
       },
       error: (error: Error) => {
         console.error((error as Error).message);

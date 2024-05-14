@@ -37,7 +37,7 @@ router.put("/:id", async (req, res) => {
     const { pr } = req.body;
     const { prev } = req.body;
     const updateTriceps = await pool.query(
-      "UPDATE triceps SET description = $1, rounds = $2, reps = $3, pr = $4, prev = $5 WHERE tri_id = $6",
+      "UPDATE triceps SET description = $1, rounds = $2, reps = $3, pr = $4, prev = $5 WHERE id = $6",
       [description, rounds, reps, pr, prev, id],
     );
     res.json("Exercise has been updated!");
@@ -50,7 +50,7 @@ router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const deleteTriceps = await pool.query(
-      "DELETE FROM triceps WHERE tri_id = $1",
+      "DELETE FROM triceps WHERE id = $1",
       [id],
     );
     res.json("Exercise has been deleted");

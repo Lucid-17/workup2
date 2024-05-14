@@ -21,11 +21,11 @@ interface Return {
 export class WorkoutServiceService {
   constructor(private http: HttpClient) {}
 
-  getExercies(muscleGroup: string): Observable<MuscleItem[]> {
+  getWorkouts(muscleGroup: string): Observable<MuscleItem[]> {
     return this.http.get<MuscleItem[]>(`http://localhost:9000/${muscleGroup}`);
   }
 
-  createExercise(muscleGroup: string, body: object): Observable<MuscleItem> {
+  createWorkout(muscleGroup: string, body: object): Observable<MuscleItem> {
     return this.http.post<MuscleItem>(
       `http://localhost:9000/${muscleGroup}`,
       body,

@@ -14,6 +14,7 @@ import {CoreComponent} from './core/core.component';
 import {LegsComponent} from './legs/legs.component';
 import {TricepsComponent} from './triceps/triceps.component';
 import {HomeComponent} from './home/home.component';
+import {MuscleGroupComponent} from './muscle-group/muscle-group.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {HomeComponent} from './home/home.component';
     HomeComponent,
     LegsComponent,
     TricepsComponent,
+    MuscleGroupComponent,
   ],
   imports: [
     BrowserModule,

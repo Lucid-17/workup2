@@ -1,7 +1,7 @@
 CREATE DATABASE workup;
 
 CREATE TABLE chest(
-	chest_id SERIAL PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
     description VARCHAR(255),
 	rounds VARCHAR(255),
     reps VARCHAR(255),
@@ -10,7 +10,7 @@ CREATE TABLE chest(
 );
 
 CREATE TABLE back(
-	back_id SERIAL PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
     description VARCHAR(255),
 	rounds VARCHAR(255),
     reps VARCHAR(255),
@@ -19,7 +19,7 @@ CREATE TABLE back(
 );
 
 CREATE TABLE biceps(
-	bi_id SERIAL PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
     description VARCHAR(255),
 	rounds VARCHAR(255),
     reps VARCHAR(255),
@@ -28,7 +28,7 @@ CREATE TABLE biceps(
 );
 
 CREATE TABLE triceps(
-	tri_id SERIAL PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
     description VARCHAR(255),
 	rounds VARCHAR(255),
     reps VARCHAR(255),
@@ -37,7 +37,7 @@ CREATE TABLE triceps(
 );
 
 CREATE TABLE legs(
-	leg_id SERIAL PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
     description VARCHAR(255),
 	rounds VARCHAR(255),
     reps VARCHAR(255),
@@ -46,7 +46,7 @@ CREATE TABLE legs(
 );
 
 CREATE TABLE core(
-	core_id SERIAL PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
     description VARCHAR(255),
 	rounds VARCHAR(255),
     reps VARCHAR(255),
