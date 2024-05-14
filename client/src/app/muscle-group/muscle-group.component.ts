@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import {Component, OnInit, TemplateRef, Input} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import {
@@ -13,8 +12,6 @@ import {
   styleUrl: './muscle-group.component.css',
 })
 export class MuscleGroupComponent implements OnInit {
-  // @Input() muscleGroup: string = '';
-
   muscleGroup: string = '';
   exercises: MuscleItem[] = [];
   description: string = '';
@@ -98,7 +95,6 @@ export class MuscleGroupComponent implements OnInit {
     });
   }
 
-  // Open Modal //
   openModal(template: TemplateRef<void>) {
     this.modalRef = this.modalService.show(template);
   }
