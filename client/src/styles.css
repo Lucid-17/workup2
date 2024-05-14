@@ -8,3 +8,11 @@
     font-family: "Bebas Neue", "consolas", sans-serif;
     text-align: center;
 }
+
+.btn.btn-info {
+    margin: 5px;
+}
+
+.btn.btn-secondary {
+    margin-left: 275px;
+}
