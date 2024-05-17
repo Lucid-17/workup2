@@ -8,15 +8,20 @@
     function ensureBasePath(path) {
       const basePath = "/workup2/";
       if (!path.startsWith(basePath)) {
-        return basePath + path.replace(/^\//, '');
+        return basePath + path.replace(/^\//, ''); 
       }
       return path;
     }
 
-   
-    if (window.location.pathname !== "/workup2/" && window.location.pathname !== "/workup2/index.html") {
+    
+    if (!window.location.pathname.startsWith("/workup2/index.html")) {
       var newPath = ensureBasePath(window.location.pathname) + window.location.search;
-      window.location.replace(newPath);
+      if (window.location.pathname !== newPath) {  
+        window.location.replace(newPath);
+      }
+    } else {
+      
+      document.location.href = '/workup2/index.html' + window.location.search;
     }
   </script>
 </head>
