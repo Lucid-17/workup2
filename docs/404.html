@@ -5,17 +5,21 @@
   <title>Redirecting...</title>
   <script>
     
-    var redirectPath = '/workup2/index.html';
-    var currentPath = window.location.pathname;
-
-    
-    if (!currentPath.startsWith('/workup2/')) {
-      redirectPath += currentPath + window.location.search;
+    function ensureBasePath(path) {
+      const basePath = "/workup2/";
+      if (!path.startsWith(basePath)) {
+        return basePath + path.replace(/^\//, '');  
+      }
+      return path;
     }
 
    
-    if (window.location.pathname !== "/workup2/") {
-      window.location.replace(redirectPath);
+    var currentPath = window.location.pathname + window.location.search;
+
+   
+    if (currentPath !== "/workup2/" && currentPath !== "/workup2/index.html") {
+      var newPath = ensureBasePath(currentPath);
+      window.location.replace(newPath);
     }
   </script>
 </head>
