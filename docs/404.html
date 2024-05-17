@@ -4,17 +4,13 @@
   <meta charset="UTF-8">
   <title>Redirecting...</title>
   <script>
-    function ensureBasePath(path) {
-      const basePath = "/workup2/";
-      if (!path.startsWith(basePath)) {
-        return basePath + path.replace(/^\//, ''); 
-      }
-      return path;
+    var redirectPath = '/workup2/index.html';
+    var currentPath = window.location.pathname;
+    if (!currentPath.startsWith('/workup2/')) {
+      redirectPath += currentPath + window.location.search;
     }
-    var currentPath = window.location.pathname + window.location.search;
-    var newPath = ensureBasePath(currentPath);
-    if (window.location.pathname + window.location.search !== newPath) {
-      window.location.replace(newPath);
+    if (window.location.pathname !== "/workup2/") {
+      window.location.replace(redirectPath);
     }
   </script>
 </head>
