@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 
 export interface MuscleItem {
   id: number;
@@ -19,20 +19,59 @@ interface Return {
   providedIn: 'root',
 })
 export class WorkoutServiceService {
+  private isDemo: boolean = false;
+
   constructor(private http: HttpClient) {}
 
-  getWorkouts(muscleGroup: string): Observable<MuscleItem[]> {
-    return this.http.get<MuscleItem[]>(`http://localhost:9000/${muscleGroup}`);
+  private getLocalStorageKey(muscleGroup: string): string {
+    return `workouts_${muscleGroup}`;
   }
 
-  createWorkout(muscleGroup: string, body: object): Observable<MuscleItem> {
-    return this.http.post<MuscleItem>(
-      `http://localhost:9000/${muscleGroup}`,
-      body,
-      {
-        headers: {'Content-Type': 'application/json'},
-      },
-    );
+  getWorkouts(muscleGroup: string): Observable<MuscleItem[]> {
+    if (this.isDemo) {
+      const workouts = localStorage.getItem(
+        this.getLocalStorageKey(muscleGroup),
+      );
+      return of(workouts ? JSON.parse(workouts) : []);
+    } else {
+      return this.http.get<MuscleItem[]>(
+        `http://localhost:9000/${muscleGroup}`,
+      );
+    }
+  }
+
+  createWorkout(
+    muscleGroup: string,
+    body: Pick<MuscleItem, 'description' | 'rounds' | 'reps' | 'pr' | 'prev'>,
+  ): Observable<MuscleItem> {
+    if (this.isDemo) {
+      const workouts = JSON.parse(
+        localStorage.getItem(this.getLocalStorageKey(muscleGroup)) || '[]',
+      );
+      // Constructing newWorkout with specific fields
+      const newWorkout: MuscleItem = {
+        id: Date.now(), // Ensuring a unique ID is generated
+        description: body.description,
+        rounds: body.rounds,
+        reps: body.reps,
+        pr: body.pr,
+        prev: body.prev,
+      };
+      workouts.push(newWorkout);
+      localStorage.setItem(
+        this.getLocalStorageKey(muscleGroup),
+        JSON.stringify(workouts),
+      );
+      return of(newWorkout);
+    } else {
+      return this.http.post<MuscleItem>(
+        `http://localhost:9000/${muscleGroup}`,
+        body,
+        {
+          headers: {'Content-Type': 'application/json'},
+        },
+      );
+    }
   }
 
   updateWorkout(
@@ -44,19 +83,55 @@ export class WorkoutServiceService {
     pr: string,
     prev: string,
   ): Observable<Return> {
-    const body = {description, rounds, reps, pr, prev};
-    return this.http.put<Return>(
-      `http://localhost:9000/${muscleGroup}/${id}`,
-      body,
-      {
-        headers: {'Content-Type': 'application/json'},
-      },
-    );
+    if (this.isDemo) {
+      const workouts = JSON.parse(
+        localStorage.getItem(this.getLocalStorageKey(muscleGroup)) || '[]',
+      );
+      const index = workouts.findIndex(
+        (workout: MuscleItem) => workout.id === id,
+      );
+      if (index !== -1) {
+        workouts[index] = {
+          ...workouts[index],
+          description,
+          rounds,
+          reps,
+          pr,
+          prev,
+        };
+        localStorage.setItem(
+          this.getLocalStorageKey(muscleGroup),
+          JSON.stringify(workouts),
+        );
+      }
+      return of({message: 'Updated successfully'});
+    } else {
+      const body = {description, rounds, reps, pr, prev};
+      return this.http.put<Return>(
+        `http://localhost:9000/${muscleGroup}/${id}`,
+        body,
+        {
+          headers: {'Content-Type': 'application/json'},
+        },
+      );
+    }
   }
 
   deleteWorkout(muscleGroup: string, id: number): Observable<Return> {
-    return this.http.delete<Return>(
-      `http://localhost:9000/${muscleGroup}/${id}`,
-    );
+    if (this.isDemo) {
+      let workouts = JSON.parse(
+        localStorage.getItem(this.getLocalStorageKey(muscleGroup)) || '[]',
+      );
+      workouts = workouts.filter((workout: MuscleItem) => workout.id !== id);
+      localStorage.setItem(
+        this.getLocalStorageKey(muscleGroup),
+        JSON.stringify(workouts),
+      );
+      return of({message: 'Deleted successfully'});
+    } else {
+      return this.http.delete<Return>(
+        `http://localhost:9000/${muscleGroup}/${id}`,
+      );
+    }
   }
 }
