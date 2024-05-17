@@ -57,7 +57,11 @@ export class MuscleGroupComponent implements OnInit {
     this.workoutService.createWorkout(this.muscleGroup, body).subscribe({
       next: () => {
         this.getAllExercises();
-        window.location.href = `/exercise/${this.muscleGroup}`;
+        if (this.workoutService.isDemo) {
+          window.location.href = `/workup2/exercise/${this.muscleGroup}`;
+        } else {
+          window.location.href = `/exercise/${this.muscleGroup}`;
+        }
       },
       error: (error) => console.error(error),
     });
@@ -75,7 +79,11 @@ export class MuscleGroupComponent implements OnInit {
       .updateWorkout(this.muscleGroup, id, description, rounds, reps, pr, prev)
       .subscribe({
         next: () => {
-          window.location.href = `/exercise/${this.muscleGroup}`;
+          if (this.workoutService.isDemo) {
+            window.location.href = `/workup2/exercise/${this.muscleGroup}`;
+          } else {
+            window.location.href = `/exercise/${this.muscleGroup}`;
+          }
         },
         error: (error) => {
           console.error(error.message);
@@ -87,7 +95,11 @@ export class MuscleGroupComponent implements OnInit {
     this.workoutService.deleteWorkout(this.muscleGroup, id).subscribe({
       next: () => {
         this.getAllExercises();
-        window.location.href = `/exercise/${this.muscleGroup}`;
+        if (this.workoutService.isDemo) {
+          window.location.href = `/workup2/exercise/${this.muscleGroup}`;
+        } else {
+          window.location.href = `/exercise/${this.muscleGroup}`;
+        }
       },
       error: (error: Error) => {
         console.error((error as Error).message);
