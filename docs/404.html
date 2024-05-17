@@ -4,21 +4,16 @@
   <meta charset="UTF-8">
   <title>Redirecting...</title>
   <script>
-    
     function ensureBasePath(path) {
       const basePath = "/workup2/";
       if (!path.startsWith(basePath)) {
-        return basePath + path.replace(/^\//, '');  
+        return basePath + path.replace(/^\//, ''); 
       }
       return path;
     }
-
-   
     var currentPath = window.location.pathname + window.location.search;
-
-   
-    if (currentPath !== "/workup2/" && currentPath !== "/workup2/index.html") {
-      var newPath = ensureBasePath(currentPath);
+    var newPath = ensureBasePath(currentPath);
+    if (window.location.pathname + window.location.search !== newPath) {
       window.location.replace(newPath);
     }
   </script>
