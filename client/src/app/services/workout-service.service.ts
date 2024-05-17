@@ -48,9 +48,8 @@ export class WorkoutServiceService {
       const workouts = JSON.parse(
         localStorage.getItem(this.getLocalStorageKey(muscleGroup)) || '[]',
       );
-      // Constructing newWorkout with specific fields
       const newWorkout: MuscleItem = {
-        id: Date.now(), // Ensuring a unique ID is generated
+        id: Date.now(),
         description: body.description,
         rounds: body.rounds,
         reps: body.reps,
