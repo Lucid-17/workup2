@@ -19,7 +19,7 @@ interface Return {
   providedIn: 'root',
 })
 export class WorkoutServiceService {
-  private isDemo: boolean = false;
+  private isDemo: boolean = true;
 
   constructor(private http: HttpClient) {}
 
