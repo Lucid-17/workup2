@@ -1,5 +1,7 @@
 # WorkUp2
 
+# NOTE: This project was designed using PostgreSQL. The code on Github utilizes browser cache to store information. With a running Database, simply set the "isDemo" variable to "false" in the workout-service to run the application as intended. 
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
 
 ## Development server
